@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Redirect to HTTPS (uncomment in production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Serve static assets and PWA files directly from public/
+RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+RewriteRule ^manifest\.json$ public/manifest.json [L]
+RewriteRule ^service-worker\.js$ public/service-worker.js [L]
+
+# Route everything else to public/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php [QSA,L]
+
+# Deny access to sensitive directories
+RewriteRule ^config/ - [F,L]
+RewriteRule ^includes/ - [F,L]
+RewriteRule ^lib/ - [F,L]
+RewriteRule ^schema\.sql - [F,L]

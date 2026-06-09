@@ -1,0 +1,311 @@
+/* ==========================================
+   RESPONSIVE STYLES
+   Mobile-first breakpoints
+   ========================================== */
+
+/* === 360px — Very small phones === */
+@media (max-width: 360px) {
+  .hero { padding: var(--space-10) var(--space-4) var(--space-10); }
+  .hero h1 { font-size: var(--text-2xl); }
+  .hero p { font-size: var(--text-base); }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; }
+  .how-it-works { padding: var(--space-10) var(--space-4); }
+  .features-section { padding: var(--space-10) var(--space-4); }
+  .for-doctors { padding: var(--space-10) var(--space-4); }
+  .for-doctors h2 { font-size: var(--text-2xl); }
+  .site-footer { padding: var(--space-8) var(--space-4) var(--space-4); }
+  .stats-bar { padding: var(--space-6) var(--space-4); }
+
+  .auth-form-card { padding: var(--space-5); border-radius: var(--radius-lg); }
+
+  .stat-number { font-size: var(--text-3xl); }
+  .stats-grid .stat-card { padding: var(--space-4); }
+  .stat-card-value { font-size: var(--text-2xl); }
+
+  .main-content { padding: var(--space-3); }
+  .topbar { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .topbar-title { font-size: var(--text-xl); }
+
+  .card-body { padding: var(--space-4); }
+  .card-header { padding: var(--space-4); flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+  .card-footer { padding: var(--space-3) var(--space-4); flex-direction: column; }
+
+  .filter-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tab { white-space: nowrap; flex-shrink: 0; }
+
+  .empty-state { padding: var(--space-10) var(--space-4); }
+
+  .consultation-room { height: calc(100vh - 140px); border-radius: 0; }
+  .consult-header { padding: var(--space-3) var(--space-4); flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+  .chat-messages { padding: var(--space-3); }
+
+  .prescription-card { max-width: 100%; border-radius: var(--radius); }
+  .prescription-header { padding: var(--space-4); flex-direction: column; gap: var(--space-2); }
+  .prescription-body { padding: var(--space-4); }
+
+  .landing-nav { padding: var(--space-3) var(--space-4); }
+  .sidebar { width: 100%; }
+  .sidebar-nav { padding: var(--space-2); }
+
+  .search-form input { min-width: 100%; }
+  .appointment-item { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+
+/* === 480px — Small phones === */
+@media (max-width: 480px) {
+  .radio-card-group { grid-template-columns: 1fr; }
+  .role-cards { grid-template-columns: 1fr; }
+
+  .stats-grid { grid-template-columns: 1fr; }
+
+  .wizard-steps { flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+  .wizard-step-line { display: none; }
+  .wizard-step { width: 100%; }
+
+  .search-form { flex-direction: column; }
+  .search-form input { min-width: auto; width: 100%; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .footer-bottom { font-size: var(--text-xs); }
+
+  .modal { max-width: 100%; margin: var(--space-2); border-radius: var(--radius-lg); }
+  .modal-header { padding: var(--space-4) var(--space-4) var(--space-2); }
+  .modal-body { padding: 0 var(--space-4) var(--space-2); }
+  .modal-footer { padding: var(--space-3) var(--space-4) var(--space-4); flex-direction: column-reverse; }
+  .modal-footer .btn { width: 100%; }
+
+  #toast-container {
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: var(--space-4);
+  }
+  .toast {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .emergency-categories { grid-template-columns: repeat(2, 1fr); }
+  .emergency-banner { flex-direction: column; text-align: center; }
+
+  .stats-bar { grid-template-columns: 1fr; gap: var(--space-4); }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: var(--space-4); }
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .tip-step { flex-direction: column; align-items: center; text-align: center; }
+
+  .prescription-qr img { width: 120px; height: 120px; }
+
+  .dashboard-grid { grid-template-columns: 1fr; }
+
+  .doctor-grid { grid-template-columns: 1fr; }
+  .patients-grid { grid-template-columns: 1fr; }
+
+  .features-section { grid-template-columns: 1fr; gap: var(--space-8); }
+  .steps-grid { grid-template-columns: 1fr; }
+  .features-list { gap: var(--space-4); }
+
+  .landing-nav-links.open {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    padding: var(--space-8);
+  }
+  .landing-nav-links.open a {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .landing-nav-links.open .landing-mobile-close {
+    display: flex;
+  }
+}
+
+/* === 640px — Large phones / small tablets === */
+@media (max-width: 640px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid .stat-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  .hero h1 { font-size: var(--text-3xl); }
+  .hero { padding: var(--space-14) var(--space-6) var(--space-12); min-height: auto; }
+
+  .how-it-works { padding: var(--space-12) var(--space-6); }
+  .features-section { padding: var(--space-12) var(--space-6); }
+  .for-doctors { padding: var(--space-12) var(--space-6); }
+  .site-footer { padding: var(--space-10) var(--space-6) var(--space-4); }
+  .stats-bar { padding: var(--space-8) var(--space-6); }
+
+  .doctor-card { padding: var(--space-4); }
+  .doctor-card-avatar { width: 48px; height: 48px; font-size: var(--text-base); }
+
+  .consultation-layout { grid-template-rows: 1fr auto; }
+  .consultation-chat { height: 300px; }
+
+  .main-content { padding: var(--space-4); }
+
+  .container { padding: 0 var(--space-4); }
+
+  .landing-nav-links { display: none; }
+  .landing-mobile-toggle { display: flex; }
+  .landing-desktop-btn { display: none; }
+
+  .filter-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: var(--space-1); }
+
+  .prescriptions-list { gap: var(--space-3); }
+
+  .doctor-grid { gap: var(--space-3); }
+  .patients-grid { gap: var(--space-3); }
+
+  .feature-item { gap: var(--space-3); }
+  .step-number { width: 44px; height: 44px; font-size: var(--text-xl); }
+
+  .for-doctors h2 { font-size: var(--text-3xl); }
+  .for-doctors p { font-size: var(--text-base); }
+}
+
+/* === 768px — Tablet portrait === */
+@media (max-width: 768px) {
+  .steps-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .step-desc { max-width: none; }
+
+  .stats-bar { grid-template-columns: 1fr; gap: var(--space-6); }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: var(--space-6); }
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .landing-nav { padding: var(--space-4) var(--space-6); }
+  .landing-nav-links { display: none; }
+  .landing-mobile-toggle { display: flex; }
+  .landing-desktop-btn { display: none; }
+
+  .main-content { padding: var(--space-4); }
+
+  .doctor-grid { grid-template-columns: 1fr; }
+  .patients-grid { grid-template-columns: 1fr; }
+
+  .btn { min-height: 48px; }
+  .field-input, .field-select { height: 52px; }
+  .nav-link { padding: var(--space-4) var(--space-3); }
+
+  .dashboard-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+
+  .topbar { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .topbar-actions { width: 100%; display: flex; justify-content: flex-start; gap: var(--space-2); }
+
+  .card-body { padding: var(--space-4); }
+
+  .consult-header { flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+  .jitsi-container { height: 250px; }
+
+  .sidebar { transform: translateX(-100%); transition: transform var(--transition); }
+  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+  .sidebar-overlay.open { display: block; }
+  .sidebar-toggle { display: flex; }
+  .main-content { margin-left: 0; }
+
+  .page-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+
+  .footer-grid { gap: var(--space-8); }
+
+  .stat-card { padding: var(--space-4); }
+  .stat-card-value { font-size: var(--text-2xl); }
+  .stat-card-icon { width: 40px; height: 40px; }
+  .stat-card-icon svg { width: 20px; height: 20px; }
+}
+
+/* === 860px — Small tablet landscape === */
+@media (max-width: 860px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .doctor-card-fee { font-size: var(--text-base); }
+}
+
+/* === 1024px — Tablet landscape / small desktop === */
+@media (max-width: 1024px) {
+  body { overflow-x: hidden; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+  .sidebar-overlay.open { display: block; }
+  .sidebar-toggle { display: flex; }
+  .main-content { margin-left: 0; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  .dashboard-grid { grid-template-columns: 1fr; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: var(--space-16);
+    min-height: auto;
+  }
+  .hero-content { margin: 0 auto; }
+  .hero h1 { font-size: var(--text-4xl); }
+  .hero-actions { justify-content: center; }
+  .hero-visual { display: none; }
+
+  .features-section { grid-template-columns: 1fr; gap: var(--space-10); }
+  .features-visual { display: none; }
+
+  .steps-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+
+  .consultation-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .consultation-chat { height: 320px; }
+
+  .landing-nav { padding: var(--space-4) var(--space-6); }
+  .landing-nav-links { gap: var(--space-4); }
+
+  .auth-form-card { max-width: 400px; }
+
+  .topbar-title { font-size: var(--text-xl); }
+}
+
+/* === 1200px — Large tablet === */
+@media (max-width: 1200px) {
+  .hero { gap: var(--space-10); padding: var(--space-16) var(--space-6); }
+  .stats-bar { padding: var(--space-8) var(--space-6); }
+  .how-it-works { padding: var(--space-12) var(--space-6); }
+  .features-section { padding: var(--space-12) var(--space-6); gap: var(--space-8); }
+  .for-doctors { padding: var(--space-12) var(--space-6); }
+  .site-footer { padding: var(--space-10) var(--space-6) var(--space-4); }
+
+  .dashboard-grid { gap: var(--space-4); }
+  .stats-grid { gap: var(--space-4); }
+}
+
+/* === Safe area insets for modern mobile devices (notch phones) === */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .sidebar { padding-bottom: env(safe-area-inset-bottom); }
+  .sidebar-user { padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom)); }
+  .modal-backdrop { padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom)); }
+  #toast-container { bottom: calc(var(--space-6) + env(safe-area-inset-bottom)); }
+  .landing-nav { padding-left: calc(var(--space-8) + env(safe-area-inset-left)); padding-right: calc(var(--space-8) + env(safe-area-inset-right)); }
+
+  @media (max-width: 480px) {
+    #toast-container { bottom: calc(var(--space-4) + env(safe-area-inset-bottom)); }
+  }
+}
+
+/* === Print styles === */
+@media print {
+  .sidebar, .sidebar-overlay, .sidebar-toggle,
+  .topbar-actions, .btn, .landing-nav,
+  .site-footer, #toast-container {
+    display: none !important;
+  }
+  .main-content { margin-left: 0; padding: 0; }
+  .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  body { background: white; color: black; }
+}

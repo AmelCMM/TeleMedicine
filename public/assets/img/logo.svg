@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="30" fill="#0077B6"/>
+  <text x="100" y="85" font-family="Segoe UI, sans-serif" font-size="60" font-weight="700" fill="white" text-anchor="middle">MC</text>
+  <text x="100" y="135" font-family="Segoe UI, sans-serif" font-size="16" font-weight="600" fill="rgba(255,255,255,0.9)" text-anchor="middle">MediConnect</text>
+</svg>
