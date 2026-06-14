@@ -1,5 +1,4 @@
 <?php
-
 require_once dirname(__DIR__) . '/includes/auth_guard.php';
 requireRole(ROLE_PATIENT);
 
@@ -44,72 +43,58 @@ $stmt = $db->prepare('SELECT COUNT(*) FROM notifications WHERE user_id = ? AND i
 $stmt->execute([$userId]);
 $unreadNotifs = (int)$stmt->fetchColumn();
 
-$pageTitle = 'Patient Dashboard';
+$pageTitle = 'My Health Dashboard';
 ?>
-<div class="topbar">
+<div class="page-header animate-fade">
     <div>
-        <h1 class="topbar-title">Dashboard</h1>
-        <p class="topbar-subtitle">Welcome back, <?= e(getCurrentUserName()) ?></p>
+        <h1 class="topbar-title">Hello, <?= explode(' ', getCurrentUserName())[0] ?></h1>
+        <p class="topbar-subtitle">Here is an overview of your health activities.</p>
     </div>
     <div class="topbar-actions">
-        <a href="/patient/find-doctor" class="btn btn-primary">Find a doctor</a>
+        <a href="/patient/find-doctor" class="btn btn-primary"><?= icon('plus') ?> New Consultation</a>
     </div>
 </div>
 
-<div class="stats-grid">
+<div class="stats-grid animate-slide">
     <div class="stat-card">
-        <div class="stat-card-info">
-            <div class="stat-card-value"><?= count($upcomingAppts) ?></div>
-            <div class="stat-card-label">Upcoming appointments</div>
-        </div>
+        <div class="stat-card-label">Next Appointment</div>
+        <div class="stat-card-value"><?= !empty($upcomingAppts) ? date('M j', strtotime($upcomingAppts[0]['scheduled_at'])) : 'None' ?></div>
         <div class="stat-card-icon blue"><?= icon('calendar') ?></div>
     </div>
     <div class="stat-card">
-        <div class="stat-card-info">
-            <div class="stat-card-value"><?= count($recentRx) ?></div>
-            <div class="stat-card-label">Recent prescriptions</div>
-        </div>
+        <div class="stat-card-label">Active Prescriptions</div>
+        <div class="stat-card-value"><?= count($recentRx) ?></div>
         <div class="stat-card-icon coral"><?= icon('file-text') ?></div>
     </div>
     <div class="stat-card">
-        <div class="stat-card-info">
-            <div class="stat-card-value"><?= $unreadNotifs ?></div>
-            <div class="stat-card-label">New notifications</div>
-        </div>
+        <div class="stat-card-label">Pending Notifications</div>
+        <div class="stat-card-value"><?= $unreadNotifs ?></div>
         <div class="stat-card-icon amber"><?= icon('bell') ?></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-card-info">
-            <div class="stat-card-value">2</div>
-            <div class="stat-card-label">Health records</div>
-        </div>
-        <div class="stat-card-icon green"><?= icon('heart') ?></div>
     </div>
 </div>
 
-<div class="dashboard-grid">
+<div class="dashboard-grid animate-slide" style="animation-delay: 100ms;">
     <div class="card">
         <div class="card-header">
-            <h3>Upcoming appointments</h3>
+            <h3>Upcoming Consultations</h3>
             <a href="/patient/appointments" class="card-link">View all</a>
         </div>
-        <?php if (empty($upcomingAppts)): ?>
-            <div class="empty-state">
-                <div class="empty-state-icon"><?= icon('calendar') ?></div>
-                <div class="empty-state-title">No upcoming appointments</div>
-                <p class="empty-state-text">Find a doctor and book your first consultation.</p>
-                <a href="/patient/find-doctor" class="btn btn-primary btn-sm">Find a doctor</a>
-            </div>
-        <?php else: ?>
-            <div style="display:flex;flex-direction:column;">
+        <div class="card-body" style="padding-top: 0;">
+            <?php if (empty($upcomingAppts)): ?>
+                <div class="empty-state">
+                    <div class="empty-state-icon" style="background: var(--gray-50); color: var(--gray-400);"><?= icon('calendar') ?></div>
+                    <div class="empty-state-title">No appointments found</div>
+                    <p class="empty-state-text">Your scheduled consultations will appear here.</p>
+                    <a href="/patient/find-doctor" class="btn btn-secondary btn-sm">Find a Doctor</a>
+                </div>
+            <?php else: ?>
                 <?php foreach ($upcomingAppts as $appt): ?>
-                    <div class="appointment-item card-status" data-status="<?= $appt['status'] ?>">
+                    <div class="appointment-item">
                         <div class="appt-info">
-                            <div style="font-weight:600;">Dr. <?= e($appt['doctor_name']) ?></div>
-                            <div class="appt-type"><?= e($appt['specialization']) ?></div>
-                            <div class="appt-date"><?= date('M j, Y g:i A', strtotime($appt['scheduled_at'])) ?></div>
+                            <div class="appt-doctor">Dr. <?= e($appt['doctor_name']) ?></div>
+                            <div class="appt-meta"><?= e($appt['specialization']) ?> • <?= date('g:i A', strtotime($appt['scheduled_at'])) ?></div>
                         </div>
-                        <div class="appt-meta">
+                        <div style="display:flex; align-items:center; gap:var(--space-4);">
                             <span class="badge badge-<?= $appt['status'] ?>"><?= $appt['status'] ?></span>
                             <?php if (in_array($appt['status'], ['confirmed', 'in_progress'])): ?>
                                 <a href="/patient/consultation?appt=<?= $appt['id'] ?>" class="btn btn-primary btn-sm">Join</a>
@@ -117,31 +102,32 @@ $pageTitle = 'Patient Dashboard';
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            <h3>Recent prescriptions</h3>
+            <h3>Recent Prescriptions</h3>
             <a href="/patient/prescriptions" class="card-link">View all</a>
         </div>
-        <?php if (empty($recentRx)): ?>
-            <div class="empty-state">
-                <div class="empty-state-icon"><?= icon('file-text') ?></div>
-                <div class="empty-state-title">No prescriptions yet</div>
-                <p class="empty-state-text">Prescriptions from your doctors will appear here.</p>
-            </div>
-        <?php else: ?>
-            <?php foreach ($recentRx as $rx): ?>
-                <div class="appointment-item">
-                    <div class="appt-info">
-                        <strong>Dr. <?= e($rx['doctor_name']) ?></strong>
-                        <span class="appt-date"><?= date('M j, Y', strtotime($rx['issued_at'])) ?></span>
-                    </div>
-                    <span class="badge badge-<?= $rx['status'] ?>"><?= $rx['status'] ?></span>
+        <div class="card-body" style="padding-top: 0;">
+            <?php if (empty($recentRx)): ?>
+                <div class="empty-state">
+                    <div class="empty-state-icon" style="background: var(--gray-50); color: var(--gray-400);"><?= icon('file-text') ?></div>
+                    <p class="empty-state-text">No prescriptions yet.</p>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            <?php else: ?>
+                <?php foreach ($recentRx as $rx): ?>
+                    <div class="appointment-item">
+                        <div class="appt-info">
+                            <div class="appt-doctor">Dr. <?= e($rx['doctor_name']) ?></div>
+                            <div class="appt-meta">Issued <?= date('M j, Y', strtotime($rx['issued_at'])) ?></div>
+                        </div>
+                        <span class="badge badge-<?= $rx['status'] ?>"><?= $rx['status'] ?></span>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </div>
 </div>

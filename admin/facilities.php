@@ -252,8 +252,9 @@ modal.addEventListener('click', function(e) {
 document.getElementById('facilityForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('saveBtn');
+    const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Saving...';
+    btn.innerHTML = 'Saving...';
 
     try {
         const formData = new FormData(this);
@@ -266,12 +267,12 @@ document.getElementById('facilityForm').addEventListener('submit', async functio
         } else {
             showToast('error', 'Error', data.message);
             btn.disabled = false;
-            btn.textContent = 'Save facility';
+            btn.innerHTML = originalText;
         }
     } catch (err) {
         showToast('error', 'Error', 'An error occurred.');
         btn.disabled = false;
-        btn.textContent = 'Save facility';
+        btn.innerHTML = originalText;
     }
 });
 </script>

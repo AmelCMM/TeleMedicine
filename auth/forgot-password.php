@@ -72,6 +72,7 @@ $pageTitle = 'Forgot Password';
 document.getElementById('forgotForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = 'Sending...';
 
@@ -83,13 +84,17 @@ document.getElementById('forgotForm').addEventListener('submit', async function(
         if (data.success) {
             showToast('success', 'Email sent', data.message);
             this.reset();
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         } else {
             showToast('error', 'Error', data.message);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         }
     } catch (err) {
         showToast('error', 'Error', 'An error occurred. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
     }
-    btn.disabled = false;
-    btn.innerHTML = 'Send reset link';
 });
 </script>

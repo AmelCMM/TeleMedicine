@@ -221,8 +221,9 @@ $pageTitle = 'Book Appointment';
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Processing...';
+    btn.innerHTML = 'Processing...';
 
     try {
         const formData = new FormData(this);
@@ -235,14 +236,14 @@ document.getElementById('bookingForm').addEventListener('submit', async function
         if (data.success) {
             window.location.href = data.redirect;
         } else {
-            alert(data.message);
+            showToast('error', data.message);
             btn.disabled = false;
-            btn.textContent = 'Proceed to Payment';
+            btn.innerHTML = originalText;
         }
     } catch (err) {
-        alert('An error occurred. Please try again.');
+        showToast('error', 'An error occurred. Please try again.');
         btn.disabled = false;
-        btn.textContent = 'Proceed to Payment';
+        btn.innerHTML = originalText;
     }
 });
 </script>

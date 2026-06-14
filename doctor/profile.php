@@ -202,8 +202,9 @@ document.querySelectorAll('.remove-slot').forEach(function(btn) {
 document.getElementById('profileForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Saving...';
+    btn.innerHTML = 'Saving...';
 
     try {
         const formData = new FormData(this);
@@ -215,11 +216,13 @@ document.getElementById('profileForm').addEventListener('submit', async function
             setTimeout(() => location.reload(), 1500);
         } else {
             showToast('error', 'Update failed', data.message);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         }
     } catch (err) {
         showToast('error', 'Update failed', 'An error occurred.');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
     }
-    btn.disabled = false;
-    btn.textContent = 'Save Changes';
 });
 </script>

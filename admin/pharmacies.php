@@ -52,18 +52,23 @@ $pageTitle = 'Manage Pharmacies';
 <?php else: ?>
     <div style="display:flex;flex-direction:column;gap:var(--space-4);">
         <?php foreach ($pharmacies as $pharmacy): ?>
-            <div class="card">
+            <div class="card card-status" data-status="<?= $pharmacy['is_active'] ? 'confirmed' : 'cancelled' ?>">
                 <div class="card-body">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-3);">
-                        <h3 style="font-size:var(--text-lg);"><?= e($pharmacy['name']) ?></h3>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-4);">
+                        <div style="display:flex;align-items:center;gap:var(--space-3);">
+                            <div class="avatar avatar-md"><?= getInitials($pharmacy['name']) ?></div>
+                            <div>
+                                <h3 style="font-size:var(--text-lg);"><?= e($pharmacy['name']) ?></h3>
+                                <div style="font-size:var(--text-sm);color:var(--text-secondary);"><?= e($pharmacy['email']) ?></div>
+                            </div>
+                        </div>
                         <span class="badge badge-<?= $pharmacy['is_active'] ? 'confirmed' : 'cancelled' ?>">
                             <?= $pharmacy['is_active'] ? 'Active' : 'Inactive' ?>
                         </span>
                     </div>
                     <div style="display:flex;flex-wrap:wrap;gap:var(--space-4);font-size:var(--text-sm);color:var(--text-secondary);">
-                        <span><?= icon('mail') ?> <?= e($pharmacy['email']) ?></span>
                         <span><?= icon('phone') ?> <?= e($pharmacy['phone']) ?></span>
-                        <span><?= icon('key') ?> License: <?= e($pharmacy['license_number']) ?></span>
+                        <span><?= icon('shield') ?> License: <?= e($pharmacy['license_number']) ?></span>
                         <?php if ($pharmacy['facility_name']): ?>
                             <span><?= icon('map-pin') ?> <?= e($pharmacy['facility_name']) ?></span>
                         <?php endif; ?>

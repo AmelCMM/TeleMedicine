@@ -1,37 +1,42 @@
 <?php if (!isLoggedIn()): ?>
-        </div>
     </main>
 </div>
 
-<footer class="site-footer">
-    <div class="footer-grid">
-        <div>
-            <div style="display:flex;align-items:center;gap:var(--space-3);">
-                <span style="width:36px;height:36px;border-radius:var(--radius);background-color:var(--primary-500);display:flex;align-items:center;justify-content:center;">
-                    <?= icon('heart') ?>
-                </span>
-                <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:800;color:var(--text);">MediConnect</span>
+<footer class="site-footer animate-fade">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="sidebar-logo" style="padding: 0; margin-bottom: var(--space-4);">
+                    <span class="sidebar-logo-mark"><?= icon('heart') ?></span>
+                    <span class="sidebar-logo-text">MediConnect</span>
+                </div>
+                <p class="footer-brand-desc">Advancing healthcare accessibility across Zambia through secure digital consultation and pharmacy integration.</p>
             </div>
-            <p class="footer-brand-desc">Bringing healthcare closer to you. Consult licensed doctors from anywhere in Zambia via chat, voice, or video.</p>
-        </div>
-        <div>
-            <div class="footer-col-title">Quick Links</div>
-            <div class="footer-links">
-                <a href="/patient/find-doctor">Find a Doctor</a>
-                <a href="/register">Register</a>
-                <a href="/login">Login</a>
+            <div>
+                <div class="footer-col-title">Resources</div>
+                <ul class="footer-links">
+                    <li><a href="/patient/find-doctor">Find a Provider</a></li>
+                    <li><a href="/emergency/nearest">Emergency Map</a></li>
+                    <li><a href="/register">Provider Enrollment</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact</div>
+                <ul class="footer-links">
+                    <li><a href="tel:991">National Emergency: 991</a></li>
+                    <li><a href="mailto:support@mediconnect.zm">support@mediconnect.zm</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
             </div>
         </div>
-        <div>
-            <div class="footer-col-title">Contact</div>
-            <div class="footer-links">
-                <a href="tel:991">Emergency: 991</a>
-                <a href="mailto:support@mediconnect.zm">support@mediconnect.zm</a>
+        <div class="footer-bottom">
+            <div style="display:flex; justify-content:center; gap:var(--space-6); margin-bottom:var(--space-4);">
+                <a href="#" style="color:var(--text-muted); font-size:var(--text-xs);">Privacy Policy</a>
+                <a href="#" style="color:var(--text-muted); font-size:var(--text-xs);">Terms of Service</a>
+                <a href="#" style="color:var(--text-muted); font-size:var(--text-xs);">Cookie Settings</a>
             </div>
+            <p>&copy; <?= date('Y') ?> MediConnect Zambia. All rights reserved.</p>
         </div>
-    </div>
-    <div class="footer-bottom">
-        &copy; <?= date('Y') ?> MediConnect. All rights reserved.
     </div>
 </footer>
 <?php else: ?>

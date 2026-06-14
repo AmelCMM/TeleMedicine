@@ -117,8 +117,9 @@ document.querySelectorAll('.cancel-btn').forEach(function(btn) {
     btn.addEventListener('click', async function() {
         if (!confirm('Are you sure you want to cancel this appointment?')) return;
         const apptId = this.dataset.apptId;
+        const originalText = this.innerHTML;
         this.disabled = true;
-        this.textContent = 'Cancelling...';
+        this.innerHTML = 'Cancelling...';
         try {
             const resp = await fetch('/api/cancel-appointment', {
                 method: 'POST',
@@ -126,12 +127,17 @@ document.querySelectorAll('.cancel-btn').forEach(function(btn) {
                 body: 'appointment_id=' + apptId + '&csrf_token=<?= generateCsrfToken() ?>'
             });
             const data = await resp.json();
-            if (data.success) { location.reload(); }
-            else { showToast('error', data.message); this.disabled = false; this.textContent = 'Cancel'; }
+            if (data.success) {
+                location.reload();
+            } else {
+                showToast('error', data.message);
+                this.disabled = false;
+                this.innerHTML = originalText;
+            }
         } catch (err) {
             showToast('error', 'An error occurred.');
             this.disabled = false;
-            this.textContent = 'Cancel';
+            this.innerHTML = originalText;
         }
     });
 });

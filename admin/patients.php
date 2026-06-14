@@ -52,19 +52,24 @@ $pageTitle = 'Manage Patients';
 <?php else: ?>
     <div style="display:flex;flex-direction:column;gap:var(--space-4);">
         <?php foreach ($patients as $patient): ?>
-            <div class="card">
+            <div class="card card-status" data-status="<?= $patient['is_active'] ? 'confirmed' : 'cancelled' ?>">
                 <div class="card-body">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-3);">
-                        <h3 style="font-size:var(--text-lg);"><?= e($patient['name']) ?></h3>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-4);">
+                        <div style="display:flex;align-items:center;gap:var(--space-3);">
+                            <div class="avatar avatar-md"><?= getInitials($patient['name']) ?></div>
+                            <div>
+                                <h3 style="font-size:var(--text-lg);"><?= e($patient['name']) ?></h3>
+                                <div style="font-size:var(--text-sm);color:var(--text-secondary);"><?= e($patient['email']) ?></div>
+                            </div>
+                        </div>
                         <span class="badge badge-<?= $patient['is_active'] ? 'confirmed' : 'cancelled' ?>">
                             <?= $patient['is_active'] ? 'Active' : 'Inactive' ?>
                         </span>
                     </div>
                     <div style="display:flex;flex-wrap:wrap;gap:var(--space-4);font-size:var(--text-sm);color:var(--text-secondary);">
-                        <span><?= icon('mail') ?> <?= e($patient['email']) ?></span>
                         <span><?= icon('phone') ?> <?= e($patient['phone']) ?></span>
                         <?php if ($patient['gender']): ?>
-                            <span><?= icon('user') ?> <?= e($patient['gender']) ?></span>
+                            <span style="text-transform:capitalize;"><?= icon('user') ?> <?= e($patient['gender']) ?></span>
                         <?php endif; ?>
                         <span><?= icon('calendar') ?> Joined <?= date('M j, Y', strtotime($patient['created_at'])) ?></span>
                     </div>

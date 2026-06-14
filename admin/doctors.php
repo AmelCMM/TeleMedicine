@@ -129,6 +129,7 @@ $pageTitle = 'Manage Doctors';
 
     function handleAction(btn, action) {
         var doctorId = btn.dataset.doctorId;
+        var originalText = btn.innerHTML;
         btn.disabled = true;
 
         var formData = new FormData();
@@ -145,11 +146,13 @@ $pageTitle = 'Manage Doctors';
                 } else {
                     showToast('error', data.message);
                     btn.disabled = false;
+                    btn.innerHTML = originalText;
                 }
             })
             .catch(function() {
                 showToast('error', 'An error occurred.');
                 btn.disabled = false;
+                btn.innerHTML = originalText;
             });
     }
 

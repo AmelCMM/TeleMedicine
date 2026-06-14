@@ -73,8 +73,9 @@ $pageTitle = 'Reset Password';
 document.getElementById('resetForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Resetting...';
+    btn.innerHTML = 'Resetting...';
 
     try {
         const formData = new FormData(this);
@@ -87,12 +88,12 @@ document.getElementById('resetForm').addEventListener('submit', async function(e
         } else {
             showToast('error', 'Error', data.message);
             btn.disabled = false;
-            btn.textContent = 'Reset password';
+            btn.innerHTML = originalText;
         }
     } catch (err) {
         showToast('error', 'Error', 'An error occurred. Please try again.');
         btn.disabled = false;
-        btn.textContent = 'Reset password';
+        btn.innerHTML = originalText;
     }
 });
 </script>
