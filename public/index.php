@@ -10,15 +10,7 @@ require_once dirname(__DIR__) . '/config/database.php';
 require_once dirname(__DIR__) . '/config/constants.php';
 require_once dirname(__DIR__) . '/includes/functions.php';
 
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$basePath = dirname($_SERVER['SCRIPT_NAME']);
-
-// Properly extract route
-$route = $requestUri;
-if ($basePath !== '/' && $basePath !== '\\' && strpos($requestUri, $basePath) === 0) {
-    $route = substr($requestUri, strlen($basePath));
-}
-$route = '/' . trim($route, '/');
+$route = '/' . trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 // Common MIME types
 $mimeTypes = [
@@ -115,6 +107,7 @@ if ($fileToLoad && file_exists($fileToLoad)) {
 
     // Determine if we should wrap in layout
     $isJson = is_string($output) && strlen($output) > 0 && $output[0] === '{';
+    $isJson = $isJson || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest');
 
     if ($isJson || isset($noLayout)) {
         header('Content-Type: application/json');

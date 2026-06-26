@@ -126,6 +126,12 @@ $pageTitle = 'Login';
     if (form) {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // Request notification permission in this user-generated event
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+
             var btn = this.querySelector('button[type="submit"]');
             var originalText = btn.innerHTML;
             btn.disabled = true;

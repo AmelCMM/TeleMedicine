@@ -87,7 +87,7 @@ $facilityTypes = ['clinic', 'hospital', 'pharmacy', 'health_post'];
 
 $pageTitle = 'Manage Facilities';
 ?>
-<div class="topbar">
+<div class="page-header">
     <div>
         <h1 class="topbar-title">Manage facilities</h1>
     </div>
@@ -98,12 +98,12 @@ $pageTitle = 'Manage Facilities';
 
 <div class="card" style="padding:var(--space-4);margin-bottom:var(--space-6);">
     <form method="GET" class="search-form">
-        <input type="text" name="search" placeholder="Search facilities..." value="<?= e($search) ?>">
-        <select name="type">
+        <input type="text" name="search" class="field-input" placeholder="Search facilities..." value="<?= e($search) ?>">
+        <select name="type" class="field-select" style="max-width: 200px;">
             <option value="">All types</option>
             <?php foreach ($facilityTypes as $ft): ?>
                 <option value="<?= $ft ?>" <?= $typeFilter === $ft ? 'selected' : '' ?>>
-                    <?= ucfirst($ft) ?>
+                    <?= ucfirst(str_replace('_', ' ', $ft)) ?>
                 </option>
             <?php endforeach; ?>
         </select>

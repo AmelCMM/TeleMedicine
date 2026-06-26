@@ -66,7 +66,11 @@ $pageTitle = 'Provider Dashboard';
 <div class="page-header animate-fade">
     <div>
         <h1 class="topbar-title">Medical Dashboard</h1>
-        <p class="topbar-subtitle">Welcome back, Dr. <?= explode(' ', getCurrentUserName())[1] ?? getCurrentUserName() ?></p>
+        <?php
+            $nameParts = explode(' ', getCurrentUserName());
+            $displayName = count($nameParts) > 1 ? $nameParts[count($nameParts)-1] : $nameParts[0];
+        ?>
+        <p class="topbar-subtitle">Welcome back, Dr. <?= e($displayName) ?></p>
     </div>
     <div class="topbar-actions">
         <a href="/doctor/appointments" class="btn btn-secondary"><?= icon('calendar') ?> Full Schedule</a>

@@ -130,7 +130,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .auth-link {
@@ -147,20 +147,37 @@
   margin-bottom: var(--space-8);
 }
 
+.role-card input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
 .role-card-label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-6) var(--space-2);
-  border: 1px solid var(--gray-300);
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-2);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  transition: all var(--transition-fast);
+  transition: all var(--transition);
   cursor: pointer;
+  height: 100%;
+}
+
+.role-card-label svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
 }
 
 .role-card-label:hover {
   background-color: var(--gray-50);
+  border-color: var(--gray-400);
 }
 
 .role-card input:checked + .role-card-label {
@@ -169,15 +186,43 @@
   box-shadow: 0 0 0 1px var(--primary-500);
 }
 
+.role-card input:checked + .role-card-label svg {
+  color: var(--primary-500);
+}
+
 .role-card-title {
-  font-size: var(--text-sm);
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text);
+  display: block;
+}
+
+.role-card-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.role-fields {
+  display: none;
+  margin: var(--space-6) 0;
+  padding: var(--space-5);
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.role-fields.visible {
+  display: block;
+  animation: fadeIn 0.3s ease;
 }
 
 @media (max-width: 1024px) {
   .auth-layout { grid-template-columns: 1fr; }
   .auth-panel { display: none; }
-  .auth-form-panel { background-color: var(--bg); }
-  .auth-form-card { box-shadow: none; border: none; padding: var(--space-6); }
+  .auth-form-panel { background-color: var(--bg); padding: var(--space-4); }
+  .auth-form-card { box-shadow: none; border: none; padding: var(--space-4); max-width: 100%; }
+  .role-cards { gap: var(--space-2); }
+  .role-card-label { padding: var(--space-4) var(--space-1); }
 }

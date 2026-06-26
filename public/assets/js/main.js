@@ -6,6 +6,12 @@
 })();
 
 function showToast(type, title, message) {
+  // Handle 2-argument call: showToast(type, message)
+  if (arguments.length === 2) {
+    message = title;
+    title = type.charAt(0).toUpperCase() + type.slice(1);
+  }
+
   var icons = {
     success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>',
     error:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>',
@@ -13,11 +19,20 @@ function showToast(type, title, message) {
     info:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="8"/></svg>'
   };
   var container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
+
   var toast = document.createElement('div');
   toast.className = 'toast ' + type;
   toast.innerHTML = icons[type] + '<div><div class="toast-title">' + title + '</div>' + (message ? '<div class="toast-message">' + message + '</div>' : '') + '</div>';
   container.appendChild(toast);
-  setTimeout(function() { toast.remove(); }, 4000);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    setTimeout(function() { toast.remove(); }, 500);
+  }, 4000);
 }
 
 // Nav toggle for mobile (landing page)
@@ -124,7 +139,6 @@ function showToast(type, title, message) {
 // Appointment reminders
 (function() {
   if (!('Notification' in window)) return;
-  if (Notification.permission === 'default') Notification.requestPermission();
 
   var apptDates = document.querySelectorAll('[data-appt-date]');
   apptDates.forEach(function(el) {

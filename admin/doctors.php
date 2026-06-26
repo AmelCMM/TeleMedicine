@@ -107,7 +107,7 @@ $pageTitle = 'Manage Doctors';
                     <div style="display:flex;flex-wrap:wrap;gap:var(--space-4);font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
                         <span><?= icon('mail') ?> <?= e($doctor['email']) ?></span>
                         <span><?= icon('phone') ?> <?= e($doctor['phone']) ?></span>
-                        <span><?= icon('dollar-sign') ?> <?= formatCurrency($doctor['consultation_fee']) ?></span>
+                        <span>Fee: <?= formatCurrency($doctor['consultation_fee']) ?></span>
                         <span><?= icon('calendar') ?> Joined <?= date('M j, Y', strtotime($doctor['created_at'])) ?></span>
                     </div>
 

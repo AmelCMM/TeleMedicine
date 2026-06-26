@@ -1,239 +1,171 @@
-.consultation-room {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 180px);
-    background: var(--surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-}
-
-.consult-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-5) var(--space-6);
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    flex-shrink: 0;
-}
-
-.consult-doctor-info h2 {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-1);
-}
-
-.consult-doctor-info span {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-}
-
-.consult-actions {
-    display: flex;
-    gap: var(--space-2);
-}
-
-/* Jitsi container */
-.jitsi-container {
-    width: 100%;
-    height: 400px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-}
-
-/* Consultation layout (doctor side with sidebar) */
 .consultation-layout {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    flex: 1;
+    grid-template-columns: 1fr 360px;
+    height: calc(100vh - var(--navbar-height) - var(--space-8));
+    gap: var(--space-4);
+    margin-top: calc(-1 * var(--space-4));
+}
+
+.consultation-video {
+    background: #121212;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.consultation-type-label {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.consultation-chat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 }
 
-/* Chat section */
-.chat-section {
+.chat-header {
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--border);
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 300px;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.chat-header .tag {
+    font-size: 11px;
+    background: var(--primary-50);
+    color: var(--primary-500);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
 }
 
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: var(--space-5) var(--space-6);
+    padding: var(--space-6);
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
 }
 
-.message {
-    max-width: 75%;
-    margin-bottom: var(--space-2);
+.message-bubble {
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
 }
 
-.message-in {
+.message-bubble.incoming {
     align-self: flex-start;
 }
 
-.message-out {
+.message-bubble.outgoing {
     align-self: flex-end;
 }
 
-.message-content {
+.bubble-body {
     padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-lg);
-    background: var(--bg);
-    font-size: var(--text-sm);
-    line-height: 1.5;
-}
-
-.message-out .message-content {
-    background: var(--primary);
-    color: white;
-}
-
-.message-content p {
-    margin-bottom: var(--space-1);
-    line-height: 1.4;
-}
-
-.message-content p:last-child { margin-bottom: 0; }
-
-.message-time {
-    font-size: var(--text-xs);
-    opacity: 0.7;
-    margin-top: var(--space-1);
-    display: block;
-}
-
-.chat-input {
-    display: flex;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    border-top: 1px solid var(--border);
-    background: var(--surface);
-    flex-shrink: 0;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: var(--space-3) var(--space-4);
-    border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    font-size: var(--text-sm);
-    transition: border-color var(--transition-fast);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
 }
 
-.chat-input input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
-}
-
-.chat-input button {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: none;
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: background var(--transition-fast);
-    flex-shrink: 0;
-}
-
-.chat-input button:hover { background: var(--primary-700); }
-.chat-input button svg { width: 18px; height: 18px; }
-
-/* Consult sidebar (doctor side) */
-.consult-sidebar {
-    padding: var(--space-5);
-    border-left: 1px solid var(--border);
-    overflow-y: auto;
-}
-
-.consult-sidebar h3 {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-4);
-}
-
-.consult-sidebar-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-}
-
-.consult-info-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--text-sm);
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.consult-info-label {
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.consult-info-value {
+.incoming .bubble-body {
+    background: var(--gray-100);
     color: var(--text);
-    font-weight: 600;
+    border-bottom-left-radius: 2px;
+}
+
+.outgoing .bubble-body {
+    background: var(--primary-500);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.bubble-time {
+    font-size: 10px;
+    margin-top: 4px;
+    opacity: 0.7;
+}
+
+.outgoing .bubble-time {
     text-align: right;
 }
 
-@media (max-width: 768px) {
+.chat-input-area {
+    padding: var(--space-4);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: var(--space-2);
+}
+
+.chat-input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: var(--primary-500);
+}
+
+.chat-send-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--primary-500);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.chat-send-btn:hover {
+    background: var(--primary-600);
+    transform: scale(1.05);
+}
+
+/* Jitsi custom styles */
+#jitsi-container iframe {
+    border: none;
+}
+
+@media (max-width: 1024px) {
     .consultation-layout {
         grid-template-columns: 1fr;
-    }
-
-    .consult-sidebar {
-        border-left: none;
-        border-top: 1px solid var(--border);
-    }
-
-    .jitsi-container {
-        height: 250px;
-    }
-
-    .consultation-room {
-        height: calc(100vh - 140px);
-        border-radius: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .consult-header {
+        height: auto;
+        display: flex;
         flex-direction: column;
-        gap: var(--space-3);
-        align-items: flex-start;
-        padding: var(--space-3) var(--space-4);
     }
 
-    .consult-actions {
-        width: 100%;
-        justify-content: flex-start;
+    .consultation-video {
+        height: 400px;
+        flex-shrink: 0;
     }
 
-    .chat-messages {
-        padding: var(--space-3);
-    }
-
-    .chat-input {
-        padding: var(--space-3);
-    }
-
-    .message {
-        max-width: 85%;
-    }
-}
-
-@media (max-width: 360px) {
-    .jitsi-container {
-        height: 180px;
-    }
-
-    .consultation-room {
-        height: calc(100vh - 120px);
+    .consultation-chat {
+        height: 500px;
     }
 }

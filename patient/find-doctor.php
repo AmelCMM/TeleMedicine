@@ -35,7 +35,7 @@ $doctors = $stmt->fetchAll();
 $specStmt = $db->query('SELECT DISTINCT specialization FROM doctors WHERE is_approved = 1 ORDER BY specialization');
 $specializations = $specStmt->fetchAll(PDO::FETCH_COLUMN);
 ?>
-<div class="topbar">
+<div class="page-header">
     <div>
         <h1 class="topbar-title">Find a doctor</h1>
         <p class="topbar-subtitle">Browse our network of licensed healthcare professionals</p>
@@ -44,14 +44,14 @@ $specializations = $specStmt->fetchAll(PDO::FETCH_COLUMN);
 
 <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-6);">
     <form method="GET" action="/patient/find-doctor" class="search-form">
-        <input type="text" name="search" placeholder="Search by name or specialization..." value="<?= e($search) ?>">
-        <select name="specialization">
+        <input type="text" name="search" class="field-input" placeholder="Search by name or specialization..." value="<?= e($search) ?>">
+        <select name="specialization" class="field-select" style="max-width: 240px;">
             <option value="">All specializations</option>
             <?php foreach ($specializations as $spec): ?>
                 <option value="<?= e($spec) ?>" <?= $specialization === $spec ? 'selected' : '' ?>><?= e($spec) ?></option>
             <?php endforeach; ?>
         </select>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary"><?= icon('search') ?> Search</button>
         <?php if (!empty($search) || !empty($specialization)): ?>
             <a href="/patient/find-doctor" class="btn btn-ghost">Clear</a>
         <?php endif; ?>
@@ -82,11 +82,14 @@ $specializations = $specStmt->fetchAll(PDO::FETCH_COLUMN);
                     </div>
                 </div>
                 <?php if ($doctor['bio']): ?>
-                    <p style="font-size:var(--text-sm);color:var(--text-secondary);"><?= e(substr($doctor['bio'], 0, 120)) ?></p>
+                    <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;margin:0;"><?= e(substr($doctor['bio'], 0, 120)) ?>...</p>
                 <?php endif; ?>
-                <div style="display:flex;align-items:center;justify-content:space-between;">
-                    <div class="doctor-card-fee"><?= formatCurrency($doctor['consultation_fee']) ?></div>
-                    <a href="/patient/book-appointment?doctor_id=<?= $doctor['id'] ?>" class="btn btn-primary btn-sm">Book appointment</a>
+                <div style="margin-top:auto;padding-top:var(--space-4);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+                    <div>
+                        <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;font-weight:600;margin-bottom:2px;">Fee</div>
+                        <div class="doctor-card-fee"><?= formatCurrency($doctor['consultation_fee']) ?></div>
+                    </div>
+                    <a href="/patient/book-appointment?doctor_id=<?= $doctor['id'] ?>" class="btn btn-primary btn-sm">Book now</a>
                 </div>
             </div>
         <?php endforeach; ?>

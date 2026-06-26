@@ -145,13 +145,14 @@ function formatCurrency(float $amount, string $currency = 'ZMW'): string
 }
 
 // Get initials from name
-function getInitials(string $name): string
+function getInitials(?string $name): string
 {
+    if (empty($name)) return '??';
     $words = explode(' ', trim($name));
     if (count($words) >= 2) {
         return strtoupper(substr($words[0], 0, 1) . substr($words[count($words) - 1], 0, 1));
     }
-    return strtoupper(substr($words[0], 0, 2));
+    return strtoupper(substr($words[0], 0, min(2, strlen($words[0]))));
 }
 
 // Inline SVG icon helper

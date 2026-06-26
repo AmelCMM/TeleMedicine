@@ -2,11 +2,21 @@
 $role = $_SESSION['role'] ?? null;
 $name = $_SESSION['user_name'] ?? null;
 $userId = $_SESSION['user_id'] ?? null;
-$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Use $route from public/index.php if available, else calculate it
+if (!isset($route)) {
+    $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $basePath = dirname($_SERVER['SCRIPT_NAME']);
+    $route = $requestUri;
+    if ($basePath !== '/' && $basePath !== '\\' && strpos($requestUri, $basePath) === 0) {
+        $route = substr($requestUri, strlen($basePath));
+    }
+    $route = '/' . trim($route, '/');
+}
 
 function isActive($path) {
-    global $currentPath;
-    return $currentPath === $path ? 'active' : '';
+    global $route;
+    return $route === $path ? 'active' : '';
 }
 
 $unreadNotifs = 0;
@@ -112,11 +122,20 @@ if (!isLoggedIn()): ?>
                     <h2 style="font-size:1.25rem; font-weight:600;"><?= $pageTitle ?? 'Dashboard' ?></h2>
                 </div>
             </div>
-            <div class="topbar-actions">
+            <div class="topbar-actions" style="position:relative;">
                 <button class="notification-btn" id="notifBtn" title="Notifications">
                     <?= icon('bell') ?>
-                    <?php if ($unreadNotifs > 0): ?><span class="dot"></span><?php endif; ?>
+                    <span id="notifBadge" class="dot" style="<?= $unreadNotifs > 0 ? '' : 'display:none;' ?>"></span>
                 </button>
+                <div class="notif-dropdown" id="notifDropdown">
+                    <div class="notif-dropdown-header">
+                        <h3>Notifications</h3>
+                        <button id="markAllRead">Mark all read</button>
+                    </div>
+                    <div class="notif-list" id="notifList">
+                        <div class="notif-empty">No new notifications</div>
+                    </div>
+                </div>
             </div>
         </header>
         <?php displayFlashMessage(); ?>

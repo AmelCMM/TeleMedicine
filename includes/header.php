@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="/assets/css/auth.css?v=<?= APP_VERSION ?>">
     <?php endif; ?>
 
+    <?php if (strpos($uri, 'consultation') !== false): ?>
+    <link rel="stylesheet" href="/assets/css/consultation.css?v=<?= APP_VERSION ?>">
+    <?php endif; ?>
+
     <link rel="stylesheet" href="/assets/css/responsive.css?v=<?= APP_VERSION ?>">
 
     <!-- Scripts -->

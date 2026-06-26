@@ -15,25 +15,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$notificationId = (int)($_POST['notification_id'] ?? 0);
+$notificationId = (int)($_POST['id'] ?? $_POST['notification_id'] ?? 0);
+$action = $_POST['action'] ?? '';
 $userId = (int)$_SESSION['user_id'];
-
-if (!$notificationId) {
-    echo json_encode(['success' => false, 'message' => 'Notification ID required']);
-    exit;
-}
 
 $db = Database::getConnection();
 
 try {
-    $stmt = $db->prepare("
-        UPDATE notifications SET is_read = 1
-        WHERE id = ? AND user_id = ?
-    ");
-    $stmt->execute([$notificationId, $userId]);
-
-    echo json_encode(['success' => true, 'message' => 'Notification marked as read']);
-
+    if ($action === 'mark_all') {
+        $stmt = $db->prepare("UPDATE notifications SET is_read = 1 WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        echo json_encode(['success' => true, 'message' => 'All notifications marked as read']);
+    } elseif ($notificationId) {
+        $stmt = $db->prepare("UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?");
+        $stmt->execute([$notificationId, $userId]);
+        echo json_encode(['success' => true, 'message' => 'Notification marked as read']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
+    }
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Failed to mark notification']);
+    echo json_encode(['success' => false, 'message' => 'Database error']);
 }
